@@ -1024,8 +1024,9 @@ class DashboardController extends Controller
             $apiUrl = ApiConfig::get('/team/get-details');
             $response = $this->helper->postApiCallWithAuth('get', $apiUrl);
             $responseData = $this->helper->responseHandler($response['data']);
+
             if ($responseData['code'] === 200) {
-                $teamIDs = $responseData['data']->teamMembers;
+                $teamIDs = $responseData['data']->teamMembers ?? [];
                 foreach ($teamIDs as $data) {
                     array_push($teamIdValues, (string)$data[0]->team_id);
                 }
@@ -1044,7 +1045,6 @@ class DashboardController extends Controller
             }
         } catch (Exception $e) {
             return $this->helper->errorHandler($e->getLine(), $e->getCode(), $e->getMessage(), 'getUserDatas() {DashboardController}');
-
         }
     }
 
@@ -1060,7 +1060,7 @@ class DashboardController extends Controller
             $teamID = 0;
             $team = Session::get('team');
             $teamID = $team['teamid'];
-            $apiUrl2 = $this->API_URL_NOTIFICATION . '/v1/notify/get-team-notification?teamId=' . $teamID . '&pageId=' . $pageid;
+            $apiUrl2 = $this->API_URL_NOTIFICATION . 'v1/notify/get-team-notification?teamId=' . $teamID . '&pageId=' . $pageid;
             $response = $this->helper->postApiCallWithAuth('post', $apiUrl2);
             $responseData = $this->helper->responseHandler($response['data']);
             return $responseData;
@@ -1081,7 +1081,7 @@ class DashboardController extends Controller
             $pageid = $request->pageid;
             $userSession = Session::get('user');
             $userid = $userSession['userDetails']['user_id'];
-            $apiUrl2 = $this->API_URL_NOTIFICATION . '/v1/notify/get-user-notification?userId=' . $userid . '&pageId=' . $pageid;
+            $apiUrl2 = $this->API_URL_NOTIFICATION . 'v1/notify/get-user-notification?userId=' . $userid . '&pageId=' . $pageid;
             $response = $this->helper->postApiCallWithAuth('post', $apiUrl2);
             $responseData = $this->helper->responseHandler($response['data']);
             return $responseData;
@@ -1148,9 +1148,9 @@ class DashboardController extends Controller
             $apiUrl1 = $this->API_URL_NOTIFICATION . 'v1/notify/get-user-notification-status';
             $response1 = $this->helper->postApiCallWithAuth('post', $apiUrl1, $dataToPass2);
             $response2 = $this->helper->postApiCallWithAuth('post', $apiUrl2, $dataToPass1);
-            if ($response1['data']->code === 200 && $response2['data']->code === 200) {
 
-                if ($response1['data']->data[0]->unReadNotificationStatus === true || $response2['data']->data[0]->unReadNotificationStatus === true) {
+            if ($response1['data']->code === 200 && $response2['data']->code === 200) {
+                if (($response1['data']->data[0]->unReadNotificationStatus ?? false) === true || ($response2['data']->data[0]->unReadNotificationStatus ?? false) === true) {
                     $result['code'] = 200;
                     $result['readStatus'] = 'true';
                     return $result;

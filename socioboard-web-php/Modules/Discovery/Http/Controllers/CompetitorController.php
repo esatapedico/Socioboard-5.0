@@ -86,7 +86,8 @@ class CompetitorController extends Controller
         $apiUrl = ApiConfig::apiAnalytics('/get/platform');
         try {
             $response = $this->helper->postApiCallWithAuth('get', $apiUrl);
-            if ($response['code'] === 200) {
+
+            if (($response['code'] ?? 204) === 200) {
                 return $this->helper->responseHandler($response['data']);
             }
             return view('discovery::competitor.analytics')->with(["ErrorMessage" => "Can't able to get Platforms"]);

@@ -69,7 +69,7 @@
                     <div class="col-xl-8" id="feeds" >
                         <!--begin::feeds-->
                         <div class="card-columns feeds-container" id="youtubeFeeds">
-                            @if(isset($responseData) && $responseData['data'] !== null)
+                            @if(isset($responseData['data']) && $responseData['data'] !== null)
                                 <script>
                                     var feedsLength = <?php echo count($responseData['data']->youtubeDetails)  ?>;
                                     var  keywordName =  '{{$keyword}}' ;
@@ -469,5 +469,3 @@
         }
     </script>
 @endsection
-
-

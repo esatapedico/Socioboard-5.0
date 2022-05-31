@@ -563,7 +563,7 @@
                                                                         a Facebook FanPage</a>
                                                                 </div>
                                                             </div>
-                                                            @if($facebookpages === 1)
+                                                            @if(($facebookpages ?? 0) === 1)
                                                                 <div class="mt-3 fb_page_div" style="display: none;">
                                                                     <span>Choose Facebook pages for posting</span>
                                                                     <div class="scroll scroll-pull" data-scroll="true"
@@ -691,7 +691,7 @@
                                                                     <a type="button" href="/add-accounts/InstagramBusiness"  class="btn btn-instagram">Connect to insta business account</a>
                                                                 </div>
                                                             </div>
-                                                            @if($instagrampages === 1)
+                                                            @if(($instagrampages ?? 0) === 1)
                                                                 <div class="mt-3 insta_page_div" style="display: none;">
                                                                     <span>Choose Instagram business accounts for posting</span>
                                                                     <div class="scroll scroll-pull" data-scroll="true"
@@ -781,7 +781,7 @@
                                                                         a LinkedIn page</a>
                                                                 </div>
                                                             </div>
-                                                            @if($LinkedInpages === 1)
+                                                            @if(($LinkedInpages ?? 0) === 1)
                                                                 <div class="mt-3 linkedIn_Pages_div"
                                                                      style="display: none;">
                                                                     <span>Choose LinkedIN pages accounts for posting</span>
@@ -941,7 +941,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @if($bloggedpages === 1)
+                                                        @if(($bloggedpages ?? 0) === 1)
                                                             <div class="mt-3 tb_page_div" style="display: none;">
                                                                 <span>Choose Blooged pages for posting</span>
                                                                 <div class="scroll scroll-pull" data-scroll="true"
@@ -2309,10 +2309,10 @@
 
         });
 
-        $fbp = {{$facebookpages}}
-            $inp = {{$instagrampages}}
-            $linp = {{$LinkedInpages}}
-            $tbp = {{$bloggedpages}}
+        $fbp = {{($facebookpages ?? 0)}}
+            $inp = {{($instagrampages ?? 0)}}
+            $linp = {{($LinkedInpages ?? 0)}}
+            $tbp = {{($bloggedpages ?? 0)}}
 
         if($fbp === 1)
         {

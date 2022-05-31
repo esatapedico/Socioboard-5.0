@@ -49,6 +49,10 @@ class ApiConfig
 
     public function getAnalytics($address): string
     {
+        if ($this->ANALYTICS_API_URL() === null) {
+            throw new \Exception('Analytics URL not configured.');
+        }
+
         return $address !== null ? $this->ANALYTICS_API_URL(). $address : $this->API_URL().$this->API_VERSION();
     }
 

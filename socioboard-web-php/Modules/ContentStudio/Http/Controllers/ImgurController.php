@@ -51,7 +51,9 @@ class ImgurController extends Controller
         $apiUrl = $this->apiUrl.'/trends/get-imgur?keyword='.$request['keyword'].'&pageId='.$request['pageId'].'&sortBy='.$request['rating'];
 
         try {
-            $response = $this->helper->postApiCallWithAuth('POST', $apiUrl);
+            if (isset($response['data']) !== true) {
+                return response()->json(['error'=>'Empty response']);
+            }
             $data = $this->helper->responseHandler($response['data'])['data'];
             $html = view('contentstudio::imgur.components.listing', ['data' => $data, 'helperClass' => $this->helper])->render();
 

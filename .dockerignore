@@ -1,0 +1,10 @@
+.vscode
+.gitignore
+INSTALLATION.md
+Installation.sh
+LICENSE
+Linux-Installation.md
+README.md
+SocioBoard5.0-doc.md
+.git
+socioboard-web-php/vendor/
